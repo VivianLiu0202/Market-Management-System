@@ -1,0 +1,90 @@
+img.logo {
+    width: 40px;
+    height: 40px;
+}
+
+span.options {
+    font-weight: bold;
+}
+
+label.navbar-text {
+    font-weight: bold;
+}
+
+.carousel-inner img {
+    width: 100%;
+    height: 300px;
+}
+
+label.goods_list {
+    font-weight: bold;
+    color: aliceblue;
+}
+
+label.user_list {
+    font-weight: bold;
+    color: aliceblue;
+}
+
+label.admin_list {
+    font-weight: bold;
+    color: aliceblue;
+}
+
+div.add {
+    position: absolute;
+    width: 850px;
+    height: 500px;
+    border: 1px solid darkgrey;
+    box-shadow: darkgrey 0px 0px 30px 5px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -40%);
+    margin: 0 auto;
+    background-color: aliceblue;
+}
+
+div.delete {
+    position: absolute;
+    width: 850px;
+    height: 200px;
+    border: 1px solid darkgrey;
+    box-shadow: darkgrey 0px 0px 30px 5px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -40%);
+    margin: 0 auto;
+    background-color: aliceblue;
+}
+div.delete_user {
+    position: absolute;
+    width: 850px;
+    height: 200px;
+    border: 1px solid darkgrey;
+    box-shadow: darkgrey 0px 0px 30px 5px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -40%);
+    margin: 0 auto;
+    background-color: aliceblue;
+}
+div.add_admin {
+    position: absolute;
+    width: 850px;
+    height: 300px;
+    border: 1px solid darkgrey;
+    box-shadow: darkgrey 0px 0px 30px 5px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -40%);
+    margin: 0 auto;
+    background-color: aliceblue;
+}
+a.nav-link{
+    font-weight: bold;
+    color: black;
+}
+
+input.form-control {
+    width: 600px;
+}
