@@ -5,15 +5,20 @@
     <meta charset="UTF-8">
     <title>Shop | Labuy</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="./statics/css/https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
-    <script src="../statics/js/https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
-    <script src="../statics/js/https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
-    <script src="../statics/js/https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-{#    <link rel="shortcut icon" type="image/x-icon" href="/static/image/favicon.ico">#}
+    <link rel="shortcut icon" type="image/x-icon" href="/statics/images/favicon.ico">
 
     <script>
         function add_id(goodsId) {
+            //var myform=$('#goodsId');
+            //var tmpInput=$("<input type='text' name='add_goods_id' />");
+            //tmpInput.attr("value", goodsId);
+            //myform.append(tmpInput);
+            //myform.submit();
             var input = document.createElement('input');
             input.setAttribute('type', 'text');
             input.setAttribute('name', 'add_goods_id');
@@ -106,7 +111,6 @@
                 </li>
             </ul>
         </nav>
-
         <!-- 模态框 -->
         <div class="modal fade" id="myModal">
             <div class="modal-dialog">
@@ -118,14 +122,14 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
 
-{#                    <!-- 模态框主体 -->#}
-{#                    <div class="modal-body">#}
-{#                        <div class="clearfix">#}
-{#                            <span class="float-left">开发者：同济大学 1753265-饶坤</span>#}
-{#                            <br />#}
-{#                            <span class="float-right">——Web技术项目设计 2021.07.08</span>#}
-{#                        </div>#}
-{#                    </div>#}
+                    <!-- 模态框主体 -->
+                    <div class="modal-body">
+                        <div class="clearfix">
+                            <span class="float-left">开发者：同济大学 1753265-饶坤</span>
+                            <br />
+                            <span class="float-right">——Web技术项目设计 2021.07.08</span>
+                        </div>
+                    </div>
 
                     <!-- 模态框底部 -->
                     <div class="modal-footer">
@@ -200,7 +204,7 @@
         <div class="row">
             {% for goods in goods_list %}
             <div class="col-sm-3" style="background-color:lavender;">
-                <img src={{goods.image}} {#  style="width:100%;height:250px;"#}>
+                <img src={{goods.image}}>
                 <label style="font-weight: bold;">{{goods.name}}</label>
                 <br />
                 <div class="clearfix">
@@ -228,8 +232,5 @@
             {% endfor %}
         </div>
     </div>
-
-
 </body>
-
 </html>

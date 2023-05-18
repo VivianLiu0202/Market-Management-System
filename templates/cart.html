@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Cart | 订单中心</title>
+    <title>Cart | 购物车</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
     <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
@@ -11,6 +11,18 @@
     <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
     <link rel="shortcut icon" type="image/x-icon" href="/statics/images/favicon.ico">
+
+    <script>
+        function submit_delete(goodsId) {
+            document.getElementById(goodsId).action='/delete_cart/';
+            document.getElementById(goodsId).submit();
+
+        }
+        function submit_buy(goodsId) {
+            document.getElementById(goodsId).action='/buy_cart/';
+            document.getElementById(goodsId).submit();
+        }
+    </script>
 
     <style>
         img.logo {
@@ -59,7 +71,7 @@
                     <label class="navbar-text">{{ id }} {{ personal_info.name }} 欢迎您！</label>
                 </li>
                 <li class="nav-item">
-                    <label class="navbar-text">订单详情页面</label>
+                    <label class="navbar-text">购物车页面</label>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/homepage/"><span class="options">返回主页面</span></a>
@@ -77,25 +89,41 @@
                     <table class="table table-hover table-striped">
                         <thead>
                             <tr>
-                                <th>订单编号</th>
-                                <th>商品名</th>
-                                <th>数量</th>
+                                <th>商品名称</th>
+                                <th>商品数量</th>
+                                <th>商品单价</th>
+                                <th>删除商品</th>
+                                <th>购买商品</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% for order_info in detail %}
-                            {% csrf_token %}
-                            <tr>
-                                <th>{{ order_info.orderId.orderId }}</th>
-                                <th>{{ order_info.name }}</th>
-                                <th>{{ order_info.num }}</th>
-                            </tr>
+                            {% for cart in cartList %}
+                            <form action='' method="POST" id={{cart.goods.id}}>
+                                {% csrf_token %}
+                                <tr>
+                                    <th>{{ cart.goods.name }}</th>
+                                    <th><input type="number" name="order_num" value={{cart.num}}
+                                            style="width:50px;"></th>
+                                    <th>{{ cart.price }}<input type="text" name="delete_cart_goods_id" value={{cart.goods.id}} style="display:none;"></th>
+                                    <th><input type="button" class="btn btn-secondary"
+                                            onclick="submit_delete('{{cart.goods.id}}')"
+                                            style="width: 60px;height: 30px;font-size: 10px;" value='删除'></th>
+                                    <th><input type="button" class="btn btn-info"
+                                            onclick="submit_buy('{{cart.goods.id}}')"
+                                            style="width: 60px;height: 30px;font-size: 10px;" value='购买'></th>
+                                </tr>
+                            </form>
                             {% endfor %}
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
+
+
     </div>
+
+
 </body>
+
 </html>
