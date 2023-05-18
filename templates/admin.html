@@ -13,11 +13,13 @@
 {#   <link rel="shortcut icon" type="image/x-icon" href="/static/image/favicon.ico">#}
     <link rel="stylesheet" type="text/css" href="../statics/css/admin.css">
 </head>
-<body style="...">
+<body style="background-color: cadetblue">
     <div class="container">
         <nav class="navbar navbar-expand-sm bg-secondary navbar-light">
             <a class="navbar-brand" href="/homepage"><img src="../statics/images/favicon.ico" class="logo"></a>
+            &nbsp;&nbsp;
             <ul class="navbar-nav">
+                &nbsp;&nbsp;&nbsp;&nbsp;
                 <li class="nav-item">
                     <label class="navbar-text">{{ id }}{{ name }} 管理员您好呀！～</label>
                 </li>
@@ -34,34 +36,28 @@
             <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#add">添加商品</a>
             </li>
-                <li class="nav-item">
+            <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#delete">删除商品</a>
             </li>
-                <li class="nav-item">
+            <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#update">修改商品</a>
             </li>
-            </li>
-                <li class="nav-item">
+            <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#order_list">订单列表</a>
             </li>
-            </li>
-                <li class="nav-item">
+            <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#delete_order">删除订单</a>
             </li>
-            </li>
-                <li class="nav-item">
+            <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#user_list">用户列表</a>
             </li>
-            </li>
-                <li class="nav-item">
+            <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#delete_user">删除用户</a>
             </li>
-            </li>
-                <li class="nav-item">
+            <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#admin_list">管理员列表</a>
             </li>
-            </li>
-                <li class="nav-item">
+            <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#add_admin">新增管理员</a>
             </li>
         </ul>
@@ -108,7 +104,7 @@
                                 <span class="input-group-text">商品id：</span>
                             </div>
                             <input type="text" class="form-control" name="add_goods_id"
-                                   placeholder="请输入商品的id~" required="required" style="...">
+                                   placeholder="请输入商品的id~" required="required" style="width: 600px">
                         </div>
                         <br />
                         <div class="input-group">
@@ -116,7 +112,7 @@
                                 <span class="input-group-text">商品名称: </span>
                             </div>
                             <input type="text" class="form-control" name="add_goods_name"
-                                   placeholder="请输入商品的名称～" required="required" style="...">
+                                   placeholder="请输入商品的名称～" required="required" style="width: 600px">
                         </div>
                         <br />
                         <div class="input-group">
@@ -124,7 +120,7 @@
                                 <span class="input-group-text">商品图片: </span>
                             </div>
                             <input type="text" class="form-control" name="add_goods_image"
-                                   placeholder="请输入商品的图片路径～" required="required" style="...">
+                                   placeholder="请输入商品的图片路径～" required="required" style="width: 600px">
                         </div>
                         <br />
                         <div class="input-group">
@@ -132,14 +128,14 @@
                                 <span class="input-group-text">商品价格: </span>
                             </div>
                             <input type="number" min="0" max="99999.99" step="0.01" class="form-control"
-                                   name="add_goods_price" placeholder="请输入商品的图片路径～" required="required" style="...">
+                                   name="add_goods_price" placeholder="请输入商品的图片路径～" required="required" style="width: 600px">
                         </div>
                         <br />
                         <div class="input-group-">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">商品种类: </span>
                             </div>
-                            <select class="form-control" name="add_goods_sort" required="required" style="...">
+                            <select class="form-control" name="add_goods_sort" required="required" style="width: 600px;margin: 0 auto;">
                                 <option value="小刘鸭系列">鸭鸭</option>
                                 <option value="jellycat系列">jellycat</option>
                                 <option value="耳机">耳机</option>
@@ -155,12 +151,12 @@
                                 <span class="input-group-text">商品库存</span>
                             </div>
                             <input type="number" class="form-control" name="add_goods_num"
-                                   placeholder="请输入商品库存～" required="required" style="...">
+                                   placeholder="请输入商品库存～" required="required" style="width: 600px">
                         </div>
                         <br />
 
                         <div class="clearfix">
-                            <span class="float-right"><button type="submit" class="btn btn-info" style="...">添加</button>
+                            <span class="float-right"><button type="submit" class="btn btn-info" style="width: 100px;height: 50px;">添加</button>
                             </span>
                         </div>
                     </form>
@@ -177,12 +173,12 @@
                                 <span class="input-group-text">商品id: </span>
                             </div>
                             <input type="text" class="form-control" name="delete_goods_id"
-                            placeholder="请输入商品id！"  style="...">
+                            placeholder="请输入商品id！"  style="width: 600px">
                         </div>
                         <br />
                         <div class="clearfix">
                             <span class="float-right"><button type="submit" class="btn btn-success"
-                                    style="...">删除</button> </span>
+                                    style="width: 100px; height: 50px">删除</button> </span>
                         </div>
                     </form>
                 </div>

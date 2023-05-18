@@ -1,0 +1,30 @@
+img.logo {
+    width: 40px;
+    height: 40px;
+}
+
+span.options {
+    font-weight: bold;
+}
+
+label.navbar-text {
+    font-weight: bold;
+}
+
+.carousel-inner img {
+    width: 100%;
+    height: 300px;
+}
+
+div.add {
+    position: absolute;
+    width: 850px;
+    height: 500px;
+    border: 1px solid darkgrey;
+    box-shadow: darkgrey 0px 0px 30px 5px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -40%);
+    margin: 0 auto;
+    background-color: aliceblue;
+}
