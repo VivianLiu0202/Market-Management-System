@@ -55,7 +55,11 @@ def homepage(request):
         user_name = Admin.objects.filter(id=user_id).first().name
     goods = models.Goods.objects.all()  # 所有商品
     context = {'id': user_id, 'name': user_name, 'identity': request.session.get('identity'), 'goods_list': goods}
+<<<<<<< HEAD
     return render(request, "index.htm", context)
+=======
+    return render(request, "index.html", context)
+>>>>>>> 79f00fef08601603210183bad62706daed04c0e8
 
 
 def admin(request):
@@ -194,7 +198,11 @@ def search(request):
         _id = request.session.get('log_id')
         _name = Admin.objects.filter(id=_id).first().name
     context = {'id': _id, 'name': _name, 'identity': request.session.get('identity'), 'goods_list': result}
+<<<<<<< HEAD
     return render(request, "index.htm", context)
+=======
+    return render(request, "index.html", context)
+>>>>>>> 79f00fef08601603210183bad62706daed04c0e8
 
 
 def filtrate(request):
@@ -213,7 +221,11 @@ def filtrate(request):
         _name = Admin.objects.filter(id=_id).first().name
 
     context = {'id': _id, 'name': _name, 'identity': request.session.get('identity'), 'goods_list': result}
+<<<<<<< HEAD
     return render(request, "index.htm", context)
+=======
+    return render(request, "index.html", context)
+>>>>>>> 79f00fef08601603210183bad62706daed04c0e8
 
 
 def add_cart(request):

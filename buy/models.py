@@ -2,7 +2,11 @@ from django.db import models
 
 #create your model here
 class User(models.Model):
+<<<<<<< HEAD
     objects = models.Manager()
+=======
+    objects = models.Manager();
+>>>>>>> 79f00fef08601603210183bad62706daed04c0e8
     id = models.CharField(max_length=20,primary_key=True)
     password = models.CharField(max_length=20)
     name = models.CharField(max_length=10)
