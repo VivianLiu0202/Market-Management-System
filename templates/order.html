@@ -1,21 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Cart | 订单中心</title>    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="./statics/css/https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
-    <script src="../statics/js/https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
-    <script src="../statics/js/https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
-    <script src="../statics/js/https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <title>Cart | 订单中心</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-{#    <link rel="shortcut icon" type="image/x-icon" href="/static/image/favicon.ico">#}
-    <link rel="stylesheet" type="text/css" href="../statics/css/order.css">
+    <link rel="shortcut icon" type="image/x-icon" href="/statics/images/favicon.ico">
+
+    <style>
+        img.logo {
+            width: 40px;
+            height: 40px;
+        }
+
+        span.options {
+            font-weight: bold;
+        }
+
+        label.navbar-text {
+            font-weight: bold;
+        }
+
+        .carousel-inner img {
+            width: 100%;
+            height: 300px;
+        }
+
+        div.add {
+            position: absolute;
+            width: 850px;
+            height: 500px;
+            border: 1px solid darkgrey;
+            box-shadow: darkgrey 0 0 30px 5px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -40%);
+            margin: 0 auto;
+            background-color: aliceblue;
+        }
+    </style>
+
+
 </head>
 
-<body style="background-color: cadetblue">
+<body style="background-color: cadetblue;">
     <div class="container">
         <nav class="navbar navbar-expand-sm bg-secondary navbar-light">
-            <a class="navbar-brand" href="/homepage"><img src="/statics/images/favicon.ico" class="logo"></a>\
+            <a class="navbar-brand" href="/homepage/"><img src="/statics/images/favicon.ico" class="logo"></a>
             &nbsp;&nbsp;
             <ul class="navbar-nav">
                 &nbsp;&nbsp;&nbsp;&nbsp;
@@ -33,9 +69,9 @@
                 </li>
             </ul>
         </nav>
-    </div>
 
-    <div class="tab-content">
+
+        <div class="tab-content">
             <div id="cart_list" class="container tab-pane active"><br>
                 <div class="col-sm-12">
                     <table class="table table-hover table-striped">
@@ -55,15 +91,13 @@
                             <form action='/order_detail/' method="POST">
                                 {% csrf_token %}
                                 <tr>
-                                    <th>{{ order.orderId }}<label>
-                                        <input type="text" name="order_id" value={{order.orderId}} style="display:none;">
-                                    </label></th>
+                                    <th>{{ order.orderId }}<input type="text" name="order_id" value={{order.orderId}} style="display:none;"></th>
                                     <th>{{ order.name }}</th>
                                     <th>{{ order.number }}</th>
                                     <th>{{ order.address }}</th>
                                     <th>{{ order.totalPrice }}</th>
                                     <th>{{ order.time }}</th>
-                                    <th><button type="submit" class="btn btn-info" style="width:60px;height:30px;font-size:10px;">查看</button></th>
+                                    <th><button type="submit" class="btn btn-info" style="width: 60px;height: 30px;font-size: 10px;">查看</button></th>
                                 </tr>
                             </form>
                             {% endfor %}
@@ -72,5 +106,6 @@
                 </div>
             </div>
         </div>
+    </div>
 </body>
 </html>

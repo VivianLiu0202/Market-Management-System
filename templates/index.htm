@@ -5,15 +5,20 @@
     <meta charset="UTF-8">
     <title>Shop | Labuy</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="./statics/css/https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
-    <script src="../statics/js/https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
-    <script src="../statics/js/https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
-    <script src="../statics/js/https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-{#    <link rel="shortcut icon" type="image/x-icon" href="/static/image/favicon.ico">#}
+    <link rel="shortcut icon" type="image/x-icon" href="/statics/images/favicon.ico">
 
     <script>
         function add_id(goodsId) {
+            //var myform=$('#goodsId');
+            //var tmpInput=$("<input type='text' name='add_goods_id' />");
+            //tmpInput.attr("value", goodsId);
+            //myform.append(tmpInput);
+            //myform.submit();
             var input = document.createElement('input');
             input.setAttribute('type', 'text');
             input.setAttribute('name', 'add_goods_id');
@@ -23,12 +28,7 @@
             document.getElementById(goodsId).submit();
         }
         function check_num(goodsId) {
-            if (document.getElementsByClassName(goodsId).value == 0) {
-                return false;
-            }
-            else {
-                return true;
-            }
+            return document.getElementsByClassName(goodsId).value !== 0;
         }
     </script>
 
@@ -74,14 +74,17 @@
                     <label class="navbar-text">{{ id }} {{ name }} 欢迎您！</label>
                 </li>
                 {% endif %}
+
                 {% if identity == 'admin' %}
                 <li class="nav-item">
                     <label class="navbar-text">{{ id }} {{ name }} 管理员您好！</label>
                 </li>
                 {% endif %}
+
                 <li>
                     <a class="nav-link" href="/personal_info/"><span class="options">个人中心</span></a>
                 </li>
+
                 {% if identity == 'user' %}
                 <li class="nav-item">
                     <a class="nav-link" href="/cart/"><span class="options">购物车</span></a>
@@ -90,6 +93,7 @@
                     <a class="nav-link" href="/order/"><span class="options">订单中心</span></a>
                 </li>
                 {% endif %}
+
                 {% if identity == 'admin' %}
                 <li class="nav-item">
                     <a class="nav-link" href="/admin/"><span class="options">管理面板</span></a>
@@ -118,20 +122,19 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
 
-{#                    <!-- 模态框主体 -->#}
-{#                    <div class="modal-body">#}
-{#                        <div class="clearfix">#}
-{#                            <span class="float-left">开发者：同济大学 1753265-饶坤</span>#}
-{#                            <br />#}
-{#                            <span class="float-right">——Web技术项目设计 2021.07.08</span>#}
-{#                        </div>#}
-{#                    </div>#}
+                    <!-- 模态框主体 -->
+                    <div class="modal-body">
+                        <div class="clearfix">
+                            <span class="float-left">开发者：2112614 刘心源</span>
+                            <br />
+                            <span class="float-right">MarketManagementSystem</span>
+                        </div>
+                    </div>
 
                     <!-- 模态框底部 -->
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -176,12 +179,13 @@
                     {% csrf_token %}
                     <label style="font-weight: bold;font-size: large;color: aliceblue;">筛选商品： 品类</label>&nbsp;
                     <select class="form-control" name="filter_sort" style="width: 150px;">
-                        <option value="手机">手机</option>
-                        <option value="电脑">电脑</option>
-                        <option value="耳机">耳机</option>
-                        <option value="显示器">显示器</option>
-                        <option value="手表">手表</option>
+                        <option value="鸭鸭">小刘鸭系列yyds</option>
+                        <option value="jellycat">jellycat每一只都想要</option>
+                        <option value="鼠鼠">拥有一只鼠鼠</option>
+                        <option value="显卡">高贵的显卡～</option>
+                        <option value="化妆品">化妆品品品！</option>
                         <option value="音箱">音箱</option>
+                        <option value="耳机">小耳机～</option>
                         <option value="All" selected>All</option>
                     </select>
                     &nbsp;
@@ -189,10 +193,11 @@
                     &nbsp;
                     <input type="number" class="form-control" name="min_price" value=0 style="width: 150px;">
                     &nbsp;
-                    <label> style="font-weight: bold;font-size: large;color: aliceblue;">最高价</label>
-                        <input type="number" class="form-control" name="max_price" value=99999 style="width: 150px;">
-                        &nbsp;
-                        <button class="btn btn-dark" type="submit">筛选</button>
+                    <label style="font-weight: bold;font-size: large;color: aliceblue;">最高价</label>
+                    &nbsp;
+                    <input type="number" class="form-control" name="max_price" value=99999 style="width: 150px;">
+                    &nbsp;
+                    <button class="btn btn-dark" type="submit">筛选</button>
                 </form>
             </div>
         </nav>
@@ -200,13 +205,13 @@
         <div class="row">
             {% for goods in goods_list %}
             <div class="col-sm-3" style="background-color:lavender;">
-                <img src={{goods.image}} {#  style="width:100%;height:250px;"#}>
+                <img src={{goods.image}}>
                 <label style="font-weight: bold;">{{goods.name}}</label>
                 <br />
                 <div class="clearfix">
                     <span class="float-left"><label style="font-weight: lighter;">库存：{{goods.num}}</label></span>
                     <span class="float-right">
-                        <label style="color: chocolate;font-weight: bold;">价格：{{goods.price}}</label>
+                        <label style="color: cadetblue;font-weight: bold;">价格：{{goods.price}}</label>
                     </span>
                 </div>
                 {% if identity == 'user' %}
@@ -222,14 +227,12 @@
                             <!--onclick="this.form.submit()"-->
                         </span>
                     </div>
+
                 </form>
                 {% endif %}
             </div>
             {% endfor %}
         </div>
     </div>
-
-
 </body>
-
 </html>
