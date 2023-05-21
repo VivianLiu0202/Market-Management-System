@@ -1,11 +1,15 @@
+import datetime
+
+from django.contrib import messages
+from django.db import OperationalError
+from django.db import connection
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 # Create your views here.
 from buy import models
 from buy.models import User, Admin, Goods, ShoppingCart, Order, OrderInfo
-import datetime
-
+from buy.models import OrderView
 
 def sign(request):
     if request.method == "GET":
@@ -55,11 +59,7 @@ def homepage(request):
         user_name = Admin.objects.filter(id=user_id).first().name
     goods = models.Goods.objects.all()  # 所有商品
     context = {'id': user_id, 'name': user_name, 'identity': request.session.get('identity'), 'goods_list': goods}
-<<<<<<< HEAD
     return render(request, "index.htm", context)
-=======
-    return render(request, "index.html", context)
->>>>>>> 79f00fef08601603210183bad62706daed04c0e8
 
 
 def admin(request):
@@ -198,11 +198,7 @@ def search(request):
         _id = request.session.get('log_id')
         _name = Admin.objects.filter(id=_id).first().name
     context = {'id': _id, 'name': _name, 'identity': request.session.get('identity'), 'goods_list': result}
-<<<<<<< HEAD
     return render(request, "index.htm", context)
-=======
-    return render(request, "index.html", context)
->>>>>>> 79f00fef08601603210183bad62706daed04c0e8
 
 
 def filtrate(request):
@@ -221,32 +217,44 @@ def filtrate(request):
         _name = Admin.objects.filter(id=_id).first().name
 
     context = {'id': _id, 'name': _name, 'identity': request.session.get('identity'), 'goods_list': result}
-<<<<<<< HEAD
     return render(request, "index.htm", context)
-=======
-    return render(request, "index.html", context)
->>>>>>> 79f00fef08601603210183bad62706daed04c0e8
 
 
 def add_cart(request):
-    if not request.session.get('is_login'):
-        return redirect('/login/')
-    if not (request.session.get('identity') == 'user'):
-        return redirect('/login/')
-    user_id = request.session.get('log_id')
-    goods_id = request.POST.get('add_goods_id')
-    goods_price = Goods.objects.filter(id=goods_id).first().price
-    goods_num = request.POST.get('add_num')
-    if int(goods_num) == 0:
+    try:
+        if not request.session.get('is_login'):
+            return redirect('/login/')
+        if not (request.session.get('identity') == 'user'):
+            return redirect('/login/')
+        #检查用户是否已经登录，并且身份为"user"，如果没有满足这些条件，则重定向到登录界面
+        user_id = request.session.get('log_id')
+        goods_id = request.POST.get('add_goods_id')
+        goods_price = Goods.objects.filter(id=goods_id).first().price
+        #获取用户ID和要添加的商品ID，并通过商品ID查询商品的价格。
+        goods_num = request.POST.get('add_num')
+        if int(goods_num) == 0:
+            return redirect('/homepage/')
+        #检查要添加的商品数量是否为0。如果为0，说明用户不希望添加该商品到购物车，因此重定向到主页。
+
+        if_exit = ShoppingCart.objects.filter(user=user_id, goods=goods_id).first()
+        if if_exit:  # 判断该用户购物车中是否存在该商品
+            new_num = ShoppingCart.objects.filter(user=user_id, goods=goods_id).first().num + int(goods_num)
+            ShoppingCart.objects.filter(user=user_id, goods=goods_id).update(num=new_num)
+        else:
+            ShoppingCart.objects.create(user=User.objects.filter(id=user_id).first(),
+                                        goods=Goods.objects.filter(id=goods_id).first(), price=goods_price, num=goods_num)
+
         return redirect('/homepage/')
-    if_exit = ShoppingCart.objects.filter(user=user_id, goods=goods_id).first()
-    if if_exit:  # 判断该用户购物车中是否存在该商品
-        new_num = ShoppingCart.objects.filter(user=user_id, goods=goods_id).first().num + int(goods_num)
-        ShoppingCart.objects.filter(user=user_id, goods=goods_id).update(num=new_num)
-    else:
-        ShoppingCart.objects.create(user=User.objects.filter(id=user_id).first(),
-                                    goods=Goods.objects.filter(id=goods_id).first(), price=goods_price, num=goods_num)
-    return redirect('/homepage/')
+    except OperationalError as e:
+        error_message = "商品库存不足"
+        # 根据具体需求进行处理，例如显示错误消息给用户
+        messages.error(request,error_message)
+        #return render(request, 'error.html', {'error_message': error_message})
+        #return HttpResponse("<script>alert('error_message')</script>")
+        return redirect('/homepage/')
+
+
+
 
 
 def cart(request):
@@ -272,30 +280,41 @@ def delete_cart(request):
 
 
 def buy_cart(request):
-    if not request.session.get('is_login'):
-        return redirect('/login/')
-    if not (request.session.get('identity') == 'user'):
-        return redirect('/login/')
-    user_id = request.session.get('log_id')
-    goods_id = request.POST.get('delete_cart_goods_id')
-    goods_name= Goods.objects.filter(id=goods_id).first().name
-    buy_time = datetime.datetime.now()
-    order_id = 'order' + buy_time.strftime('%Y%m%d%H%M%S')
-    buyer = User.objects.filter(id=user_id).first()
-    buyer_name = User.objects.filter(id=user_id).first().name
-    buyer_number = User.objects.filter(id=user_id).first().number
-    buyer_address = User.objects.filter(id=user_id).first().address
-    order_total_price = int(request.POST.get('order_num')) * Goods.objects.filter(id=goods_id).first().price
-    Order.objects.create(orderId=order_id, user=buyer, name=buyer_name, number=buyer_number, address=buyer_address,
-                         totalPrice=order_total_price, time=buy_time)
-    OrderInfo.objects.create(orderId=Order.objects.filter(orderId=order_id).first(), goods=goods_id, name=goods_name,
-                             num=int(request.POST.get('order_num')))
+    try:
+        if not request.session.get('is_login'):
+            return redirect('/login/')
+        if not (request.session.get('identity') == 'user'):
+            return redirect('/login/')
+        user_id = request.session.get('log_id')
+        goods_id = request.POST.get('delete_cart_goods_id')
+        goods_name= Goods.objects.filter(id=goods_id).first().name
+        buy_time = datetime.datetime.now()
+        order_id = 'order' + buy_time.strftime('%Y%m%d%H%M%S')
+        buyer = User.objects.filter(id=user_id).first()
+        buyer_name = User.objects.filter(id=user_id).first().name
+        buyer_number = User.objects.filter(id=user_id).first().number
+        buyer_address = User.objects.filter(id=user_id).first().address
+        order_total_price = int(request.POST.get('order_num')) * Goods.objects.filter(id=goods_id).first().price
 
-    ShoppingCart.objects.filter(user=user_id, goods=goods_id).delete()
-    # 更新库存
-    old_num = Goods.objects.filter(id=goods_id).first().num
-    Goods.objects.filter(id=goods_id).update(num=old_num - int(request.POST.get('order_num')))
-    return redirect('/cart/')
+        #存储过程调用 更新库存
+        with connection.cursor() as cursor:
+            cursor.callproc('UpdateGoodsStock',[goods_id,int(request.POST.get('order_num'))])
+        Order.objects.create(orderId=order_id, user=buyer, name=buyer_name, number=buyer_number, address=buyer_address,
+                             totalPrice=order_total_price, time=buy_time)
+        OrderInfo.objects.create(orderId=Order.objects.filter(orderId=order_id).first(), goods=goods_id, name=goods_name,
+                                 num=int(request.POST.get('order_num')))
+        ShoppingCart.objects.filter(user=user_id, goods=goods_id).delete()
+        # 更新库存
+        #old_num = Goods.objects.filter(id=goods_id).first().num
+        #Goods.objects.filter(id=goods_id).update(num=old_num - int(request.POST.get('order_num')))
+
+        return redirect('/cart/')
+
+    except OperationalError as e:
+        error_message = '库存不足哦～'
+        # 根据具体需求进行处理，例如显示错误消息给用户
+        messages.error(request, error_message)
+        return redirect('/cart')
 
 
 def order(request):
@@ -312,7 +331,10 @@ def order_detail(request):
     if not request.session.get('is_login'):
         return redirect('/login/')
     order_id = request.POST.get('order_id')
-    detail_list = OrderInfo.objects.filter(orderId=order_id)
+    #detail_list = OrderInfo.objects.filter(orderId=order_id)
+    with connection.cursor() as cursor:
+        cursor.execute('SELECT * FROM orderview where order_id = orderId')
+        detail_list = cursor.fetchall()
     context = {'detail': detail_list}
     return render(request, 'order_detail.html', context)
 

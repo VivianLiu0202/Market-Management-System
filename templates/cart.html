@@ -61,6 +61,13 @@
 </head>
 
 <body style="background-color: cadetblue;">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
     <div class="container">
         <nav class="navbar navbar-expand-sm bg-secondary navbar-light">
             <a class="navbar-brand" href="/homepage/"><img src="/statics/images/favicon.ico" class="logo"></a>

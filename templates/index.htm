@@ -56,6 +56,13 @@
 </head>
 
 <body style="background-color: cadetblue;">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
     <div class="container">
         <nav class="navbar navbar-expand-sm bg-secondary navbar-light">
             <a class="navbar-brand" href="/homepage/"><img src="/statics/images/favicon.ico" class="logo"></a>
@@ -124,15 +131,9 @@
                     <!-- 模态框主体 -->
                     <div class="modal-body">
                         <div class="clearfix">
-<<<<<<< HEAD:templates/index.htm
                             <span class="float-left">开发者：2112614 刘心源</span>
                             <br />
-                            <span class="float-right">MarketManagementSystem</span>
-=======
-                            <span class="float-left">开发者：同济大学 1753265-饶坤</span>
-                            <br />
-                            <span class="float-right">——Web技术项目设计 2021.07.08</span>
->>>>>>> 79f00fef08601603210183bad62706daed04c0e8:templates/index.html
+                            <span class="float-right">———MarketManagementSystem</span>
                         </div>
                     </div>
 
