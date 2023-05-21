@@ -113,11 +113,13 @@ def delete_goods(request):
         return redirect('/login/')
     if not (request.session.get('identity') == 'admin'):
         return redirect('/login/')
-    if_exit_id = Goods.objects.filter(id=request.POST.get('delete_goods_id')).first()
-    if not if_exit_id:
+    if_exist_id = Goods.objects.filter(id=request.POST.get('delete_goods_id')).first()
+    if not if_exist_id:
         return HttpResponse("<script>alert('该商品id不存在，无法操作!!!')</script>")
     else:
-        Goods.objects.filter(id=request.POST.get('delete_goods_id')).delete()
+        with connection.cursor() as cursor:
+            cursor.callproc('DeleteGoods',[request.POST.get('delete_goods_id')])
+        #Goods.objects.filter(id=request.POST.get('delete_goods_id')).delete()
         return HttpResponse("<script>alert('商品删除成功!!!请返回查看。')</script>")
 
 
@@ -331,10 +333,7 @@ def order_detail(request):
     if not request.session.get('is_login'):
         return redirect('/login/')
     order_id = request.POST.get('order_id')
-    #detail_list = OrderInfo.objects.filter(orderId=order_id)
-    with connection.cursor() as cursor:
-        cursor.execute('SELECT * FROM orderview where order_id = orderId')
-        detail_list = cursor.fetchall()
+    detail_list = OrderView.objects.filter(orderId=order_id)
     context = {'detail': detail_list}
     return render(request, 'order_detail.html', context)
 

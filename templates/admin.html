@@ -421,7 +421,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for order in orderview_list %}
+                            {% for order in order_list %}
                                 <form action='/order_detail/' method="POST">
                                     {% csrf_token %}
                                     <tr>
